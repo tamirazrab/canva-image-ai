@@ -156,7 +156,6 @@ export interface Editor {
   // autoZoom: () => void;
   // zoomIn: () => void;
   // zoomOut: () => void;
-  fillColor: string;
   getWorkspace: () => fabric.Object | undefined;
   // changeBackground: (value: string) => void;
   // changeSize: (value: { width: number; height: number }) => void;
@@ -197,8 +196,8 @@ export interface Editor {
   addInverseTriangle: () => void;
   addDiamond: () => void;
   canvas: fabric.Canvas;
-  // getActiveFillColor: () => string;
-  // getActiveStrokeColor: () => string;
+  getActiveFillColor: () => string;
+  getActiveStrokeColor: () => string;
   // getActiveStrokeWidth: () => number;
   // getActiveStrokeDashArray: () => number[];
   selectedObjects: fabric.Object[];

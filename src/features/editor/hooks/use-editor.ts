@@ -29,8 +29,6 @@ const buildEditor = ({
   setStrokeDashArray,
 }: BuildEditorProps): Editor => {
 
-
-
   const getWorkspace = () => {
     return canvas
       .getObjects()
@@ -182,7 +180,29 @@ const buildEditor = ({
     },
     canvas,
     selectedObjects,
-    fillColor
+    getActiveFillColor: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return fillColor;
+      }
+
+      const value = selectedObject.get("fill") || fillColor;
+
+      // Currently, gradients & patterns are not supported
+      return value as string;
+    },
+    getActiveStrokeColor: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return strokeColor;
+      }
+
+      const value = selectedObject.get("stroke") || strokeColor;
+
+      return value;
+    },
   };
 };
 

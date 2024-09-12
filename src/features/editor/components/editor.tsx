@@ -10,6 +10,7 @@ import { ActiveTool, selectionDependentTools, STROKE_COLOR, STROKE_DASH_ARRAY, S
 import { ShapeSidebar } from "./shape-sidebar";
 import { FillColorSidebar } from "./fill-color-sidebar";
 import { useEditor } from "../hooks/use-editor";
+import { StrokeColorSidebar } from "./stroke-color-sidebar";
 
 export const Editor = () => {
 
@@ -84,6 +85,13 @@ export const Editor = () => {
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
         />
+
+        <StrokeColorSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+
         <main className="bg-muted flex-1 overflow-auto relative flex flex-col">
           <Toolbar
             editor={editor}
