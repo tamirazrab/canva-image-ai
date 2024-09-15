@@ -54,6 +54,27 @@ const buildEditor = ({
   return {
 
     getWorkspace,
+
+    bringForward: () => {
+      canvas.getActiveObjects().forEach((object) => {
+        canvas.bringForward(object);
+      });
+
+      canvas.renderAll();
+
+      const workspace = getWorkspace();
+      workspace?.sendToBack();
+    },
+    sendBackwards: () => {
+      canvas.getActiveObjects().forEach((object) => {
+        canvas.sendBackwards(object);
+      });
+
+      canvas.renderAll();
+      const workspace = getWorkspace();
+      workspace?.sendToBack();
+    },
+
     changeFillColor: (value: string) => {
       setFillColor(value);
       canvas.getActiveObjects().forEach((object) => {
@@ -200,6 +221,28 @@ const buildEditor = ({
       }
 
       const value = selectedObject.get("stroke") || strokeColor;
+
+      return value;
+    },
+    getActiveStrokeWidth: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return strokeWidth;
+      }
+
+      const value = selectedObject.get("strokeWidth") || strokeWidth;
+
+      return value;
+    },
+    getActiveStrokeDashArray: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return strokeDashArray;
+      }
+
+      const value = selectedObject.get("strokeDashArray") || strokeDashArray;
 
       return value;
     },
