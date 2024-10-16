@@ -1,4 +1,26 @@
+import { ITextboxOptions } from "fabric/fabric-impl";
 import * as material from "material-colors";
+
+export const fonts = [
+  "Arial",
+  "Arial Black",
+  "Verdana",
+  "Helvetica",
+  "Tahoma",
+  "Trebuchet MS",
+  "Times New Roman",
+  "Georgia",
+  "Garamond",
+  "Courier New",
+  "Brush Script MT",
+  "Palatino",
+  "Bookman",
+  "Comic Sans MS",
+  "Impact",
+  "Lucida Sans Unicode",
+  "Geneva",
+  "Lucida Console",
+];
 
 export type ActiveTool =
   | "select"
@@ -135,14 +157,12 @@ export type BuildEditorProps = {
   strokeWidth: number;
   selectedObjects: fabric.Object[];
   strokeDashArray: number[];
-  // fontFamily: string;
+  fontFamily: string;
   setStrokeDashArray: (value: number[]) => void;
   setFillColor: (value: string) => void;
   setStrokeColor: (value: string) => void;
   setStrokeWidth: (value: number) => void;
-  bringForward: () => void;
-  sendBackwards: () => void;
-  // setFontFamily: (value: string) => void;
+  setFontFamily: (value: string) => void;
 };
 
 export interface Editor {
@@ -167,24 +187,24 @@ export interface Editor {
   // onPaste: () => void;
   // changeImageFilter: (value: string) => void;
   // addImage: (value: string) => void;
-  // delete: () => void;
-  // changeFontSize: (value: number) => void;
-  // getActiveFontSize: () => number;
-  // changeTextAlign: (value: string) => void;
-  // getActiveTextAlign: () => string;
-  // changeFontUnderline: (value: boolean) => void;
-  // getActiveFontUnderline: () => boolean;
-  // changeFontLinethrough: (value: boolean) => void;
-  // getActiveFontLinethrough: () => boolean;
-  // changeFontStyle: (value: string) => void;
-  // getActiveFontStyle: () => string;
-  // changeFontWeight: (value: number) => void;
-  // getActiveFontWeight: () => number;
-  // getActiveFontFamily: () => string;
-  // changeFontFamily: (value: string) => void;
-  // addText: (value: string, options?: ITextboxOptions) => void;
-  // getActiveOpacity: () => number;
-  // changeOpacity: (value: number) => void;
+  delete: () => void;
+  changeFontSize: (value: number) => void;
+  getActiveFontSize: () => number;
+  changeTextAlign: (value: string) => void;
+  getActiveTextAlign: () => string;
+  changeFontUnderline: (value: boolean) => void;
+  getActiveFontUnderline: () => boolean;
+  changeFontLinethrough: (value: boolean) => void;
+  getActiveFontLinethrough: () => boolean;
+  changeFontStyle: (value: string) => void;
+  getActiveFontStyle: () => string;
+  changeFontWeight: (value: number) => void;
+  getActiveFontWeight: () => number;
+  getActiveFontFamily: () => string;
+  changeFontFamily: (value: string) => void;
+  addText: (value: string, options?: ITextboxOptions) => void;
+  getActiveOpacity: () => number;
+  changeOpacity: (value: number) => void;
   bringForward: () => void;
   sendBackwards: () => void;
   changeStrokeWidth: (value: number) => void;
