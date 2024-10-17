@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { fabric } from "fabric";
 
 import { STROKE_COLOR, STROKE_WIDTH, STROKE_DASH_ARRAY, FILL_COLOR, FONT_FAMILY, BuildEditorProps, CIRCLE_OPTIONS, DIAMOND_OPTIONS, Editor, RECTANGLE_OPTIONS, TRIANGLE_OPTIONS, EditorHookProps, TEXT_OPTIONS, FONT_WEIGHT, FONT_SIZE } from "../types";
-import { isTextType } from "../utils";
+import { createFilter, isTextType } from "../utils";
 import { useAutoResize } from "./use-auto-resize";
 import { useCanvasEvents } from "./use-canvas-events";
 
@@ -54,6 +54,21 @@ const buildEditor = ({
   return {
 
     getWorkspace,
+    changeImageFilter: (value: string) => {
+      const objects = canvas.getActiveObjects();
+      objects.forEach((object) => {
+        if (object.type === "image") {
+          const imageObject = object as fabric.Image;
+
+          const effect = createFilter(value);
+
+          imageObject.filters = effect ? [effect] : [];
+          imageObject.applyFilters();
+          canvas.renderAll();
+        }
+      });
+    },
+
     addImage: (value: string) => {
       fabric.Image.fromURL(
         value,

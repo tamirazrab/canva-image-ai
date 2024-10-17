@@ -39,7 +39,6 @@ export function rgbaObjectToString(rgba: RGBColor | "transparent"): string {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
 
-
 export const createFilter = (value: string) => {
   let effect;
 
