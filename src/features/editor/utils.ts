@@ -1,7 +1,6 @@
-// import { uuid } from "uuidv4";
+import { uuid } from "uuidv4";
 import { fabric } from "fabric";
-import { RGBColor } from "react-color";
-// import type { RGBColor } from "react-color";
+import type { RGBColor } from "react-color";
 
 export function transformText(objects: any) {
   if (!objects) return;
@@ -15,29 +14,29 @@ export function transformText(objects: any) {
   });
 };
 
-// export function downloadFile(file: string, type: string) {
-//   const anchorElement = document.createElement("a");
+export function downloadFile(file: string, type: string) {
+  const anchorElement = document.createElement("a");
 
-//   anchorElement.href = file;
-//   anchorElement.download = `${uuid()}.${type}`;
-//   document.body.appendChild(anchorElement);
-//   anchorElement.click();
-//   anchorElement.remove();
-// };
+  anchorElement.href = file;
+  anchorElement.download = `${uuid()}.${type}`;
+  document.body.appendChild(anchorElement);
+  anchorElement.click();
+  anchorElement.remove();
+};
 
 export function isTextType(type: string | undefined) {
   return type === "text" || type === "i-text" || type === "textbox";
 };
 
-export function rgbaObjectToString(rgba: RGBColor | "transparent"): string {
+export function rgbaObjectToString(rgba: RGBColor | "transparent") {
   if (rgba === "transparent") {
-    return "rgba(0, 0, 0, 0)";
+    return `rgba(0,0,0,0)`;
   }
 
-  const { r, g, b, a = 1 } = rgba;
+  const alpha = rgba.a === undefined ? 1 : rgba.a;
 
-  return `rgba(${r}, ${g}, ${b}, ${a})`;
-}
+  return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${alpha})`;
+};
 
 export const createFilter = (value: string) => {
   let effect;
@@ -107,18 +106,18 @@ export const createFilter = (value: string) => {
       break;
     case "vibrance":
       // @ts-ignore
-      effect = new fabric.Image.filters.Vibrance({
+      effect = new fabric.Image.filters.Vibrance({ 
         vibrance: 1,
       });
       break;
     case "blendcolor":
-      effect = new fabric.Image.filters.BlendColor({
+      effect = new fabric.Image.filters.BlendColor({ 
         color: "#00ff00",
         mode: "multiply",
       });
       break;
     case "huerotate":
-      effect = new fabric.Image.filters.HueRotation({
+      effect = new fabric.Image.filters.HueRotation({ 
         rotation: 0.5,
       });
       break;

@@ -1,6 +1,17 @@
+import { fabric } from "fabric";
 import { ITextboxOptions } from "fabric/fabric-impl";
 import * as material from "material-colors";
 
+export const JSON_KEYS = [
+  "name",
+  "gradientAngle",
+  "selectable",
+  "hasControls",
+  "linkData",
+  "editable",
+  "extensionType",
+  "extension"
+];
 
 export const filters = [
   "none",
@@ -49,22 +60,15 @@ export const fonts = [
   "Lucida Console",
 ];
 
-export type ActiveTool =
-  | "select"
-  | "shapes"
-  | "text"
-  | "images"
-  | "draw"
-  | "fill"
-  | "stroke-color"
-  | "stroke-width"
-  | "font"
-  | "opacity"
-  | "filter"
-  | "settings"
-  | "ai"
-  | "remove-bg"
-  | "templates";
+export const selectionDependentTools = [
+  "fill",
+  "font",
+  "filter",
+  "opacity",
+  "remove-bg",
+  "stroke-color",
+  "stroke-width",
+];
 
 export const colors = [
   material.red["500"],
@@ -87,6 +91,23 @@ export const colors = [
   material.blueGrey["500"],
   "transparent",
 ];
+
+export type ActiveTool =
+  | "select"
+  | "shapes"
+  | "text"
+  | "images"
+  | "draw"
+  | "fill"
+  | "stroke-color"
+  | "stroke-width"
+  | "font"
+  | "opacity"
+  | "filter"
+  | "settings"
+  | "ai"
+  | "remove-bg"
+  | "templates";
 
 export const FILL_COLOR = "rgba(0,0,0,1)";
 export const STROKE_COLOR = "rgba(0,0,0,1)";
@@ -147,37 +168,27 @@ export const TEXT_OPTIONS = {
   fontFamily: FONT_FAMILY,
 };
 
-export const selectionDependentTools = [
-  "fill",
-  "font",
-  "filter",
-  "opacity",
-  "remove-bg",
-  "stroke-color",
-  "stroke-width",
-];
-
 export interface EditorHookProps {
-  // defaultState?: string;
-  // defaultWidth?: number;
-  // defaultHeight?: number;
+  defaultState?: string;
+  defaultWidth?: number;
+  defaultHeight?: number;
   clearSelectionCallback?: () => void;
-  // saveCallback?: (values: {
-  //   json: string;
-  //   height: number;
-  //   width: number;
-  // }) => void;
+  saveCallback?: (values: {
+    json: string;
+    height: number;
+    width: number;
+  }) => void;
 };
 
 export type BuildEditorProps = {
-  // undo: () => void;
-  // redo: () => void;
-  // save: (skip?: boolean) => void;
-  // canUndo: () => boolean;
-  // canRedo: () => boolean;
-  // autoZoom: () => void;
-  // copy: () => void;
-  // paste: () => void;
+  undo: () => void;
+  redo: () => void;
+  save: (skip?: boolean) => void;
+  canUndo: () => boolean;
+  canRedo: () => boolean;
+  autoZoom: () => void;
+  copy: () => void;
+  paste: () => void;
   canvas: fabric.Canvas;
   fillColor: string;
   strokeColor: string;
@@ -193,25 +204,25 @@ export type BuildEditorProps = {
 };
 
 export interface Editor {
-  // savePng: () => void;
-  // saveJpg: () => void;
-  // saveSvg: () => void;
-  // saveJson: () => void;
-  // loadJson: (json: string) => void;
-  // onUndo: () => void;
-  // onRedo: () => void;
-  // canUndo: () => boolean;
-  // canRedo: () => boolean;
-  // autoZoom: () => void;
-  // zoomIn: () => void;
-  // zoomOut: () => void;
+  savePng: () => void;
+  saveJpg: () => void;
+  saveSvg: () => void;
+  saveJson: () => void;
+  loadJson: (json: string) => void;
+  onUndo: () => void;
+  onRedo: () => void;
+  canUndo: () => boolean;
+  canRedo: () => boolean;
+  autoZoom: () => void;
+  zoomIn: () => void;
+  zoomOut: () => void;
   getWorkspace: () => fabric.Object | undefined;
-  // changeBackground: (value: string) => void;
-  // changeSize: (value: { width: number; height: number }) => void;
-  // enableDrawingMode: () => void;
-  // disableDrawingMode: () => void;
-  // onCopy: () => void;
-  // onPaste: () => void;
+  changeBackground: (value: string) => void;
+  changeSize: (value: { width: number; height: number }) => void;
+  enableDrawingMode: () => void;
+  disableDrawingMode: () => void;
+  onCopy: () => void;
+  onPaste: () => void;
   changeImageFilter: (value: string) => void;
   addImage: (value: string) => void;
   delete: () => void;

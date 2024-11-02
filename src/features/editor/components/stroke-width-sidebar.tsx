@@ -1,8 +1,7 @@
-
-import {
-  ActiveTool,
-  Editor,
-  STROKE_DASH_ARRAY,
+import { 
+  ActiveTool, 
+  Editor, 
+  STROKE_DASH_ARRAY, 
   STROKE_WIDTH
 } from "@/features/editor/types";
 import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
@@ -27,17 +26,6 @@ export const StrokeWidthSidebar = ({
 }: StrokeWidthSidebarProps) => {
   const widthValue = editor?.getActiveStrokeWidth() || STROKE_WIDTH;
   const typeValue = editor?.getActiveStrokeDashArray() || STROKE_DASH_ARRAY;
-
-  const isEmptyArray = Array.isArray(typeValue) && typeValue.length === 0;
-  const borderClass = isEmptyArray ? "border-2 border-blue-500" : "";
-
-  const targetArray = [5, 5];
-
-  const isMatchingArray = Array.isArray(typeValue) &&
-    typeValue.length === targetArray.length &&
-    typeValue.every((value, index) => value === targetArray[index]);
-
-  const dashedStrokeBorderClass = isMatchingArray ? "border-2 border-blue-500" : "";
 
   const onClose = () => {
     onChangeActiveTool("select");
@@ -82,7 +70,7 @@ export const StrokeWidthSidebar = ({
             size="lg"
             className={cn(
               "w-full h-16 justify-start text-left",
-              borderClass
+              JSON.stringify(typeValue) === `[]` && "border-2 border-blue-500"
             )}
             style={{
               padding: "8px 16px"
@@ -96,7 +84,7 @@ export const StrokeWidthSidebar = ({
             size="lg"
             className={cn(
               "w-full h-16 justify-start text-left",
-              dashedStrokeBorderClass
+              JSON.stringify(typeValue) === `[5,5]` && "border-2 border-blue-500"
             )}
             style={{
               padding: "8px 16px"

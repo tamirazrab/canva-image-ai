@@ -1,10 +1,10 @@
 import { ActiveTool, Editor, FILL_COLOR } from "@/features/editor/types";
 import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
 import { ToolSidebarHeader } from "@/features/editor/components/tool-sidebar-header";
+import { ColorPicker } from "@/features/editor/components/color-picker";
 
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ColorPicker } from "./color-picker";
 
 interface FillColorSidebarProps {
   editor: Editor | undefined;

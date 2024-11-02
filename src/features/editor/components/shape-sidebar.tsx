@@ -3,12 +3,12 @@ import { FaDiamond } from "react-icons/fa6";
 import { FaCircle, FaSquare, FaSquareFull } from "react-icons/fa";
 
 import { ActiveTool, Editor } from "@/features/editor/types";
+import { ShapeTool } from "@/features/editor/components/shape-tool";
+import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
+import { ToolSidebarHeader } from "@/features/editor/components/tool-sidebar-header";
 
 import { cn } from "@/lib/utils";
-import { ToolSidebarHeader } from "./tool-sidebar-header";
-import { ToolSidebarClose } from "./tool-sidebar-close";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ShapeTool } from "./shape-tool";
 
 interface ShapeSidebarProps {
   editor: Editor | undefined;

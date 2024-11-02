@@ -1,15 +1,38 @@
+import { useState } from "react";
+
+import { 
+  FaBold, 
+  FaItalic, 
+  FaStrikethrough, 
+  FaUnderline
+} from "react-icons/fa";
+import { TbColorFilter } from "react-icons/tb";
+import { BsBorderWidth } from "react-icons/bs";
+import { RxTransparencyGrid } from "react-icons/rx";
+import { 
+  ArrowUp, 
+  ArrowDown, 
+  ChevronDown, 
+  AlignLeft, 
+  AlignCenter, 
+  AlignRight,
+  Trash,
+  SquareSplitHorizontal,
+  Copy
+} from "lucide-react";
+
+import { isTextType } from "@/features/editor/utils";
+import { FontSizeInput } from "@/features/editor/components/font-size-input";
+import { 
+  ActiveTool, 
+  Editor, 
+  FONT_SIZE, 
+  FONT_WEIGHT
+} from "@/features/editor/types";
+
+import { cn } from "@/lib/utils";
 import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Editor, ActiveTool, FONT_WEIGHT, FONT_SIZE } from "../types";
-import { BsBorderWidth } from "react-icons/bs";
-import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, ChevronDown, SquareSplitHorizontal, Trash } from "lucide-react";
-import { RxTransparencyGrid } from "react-icons/rx";
-import { isTextType } from "../utils";
-import { FaBold, FaItalic, FaStrikethrough, FaUnderline } from "react-icons/fa6";
-import { useState } from "react";
-import { FontSizeInput } from "./font-size-input";
-import { TbColorFilter } from "react-icons/tb";
 
 interface ToolbarProps {
   editor: Editor | undefined;
@@ -49,6 +72,30 @@ export const Toolbar = ({
 
   const isText = isTextType(selectedObjectType);
   const isImage = selectedObjectType === "image";
+
+  const onChangeFontSize = (value: number) => {
+    if (!selectedObject) {
+      return;
+    }
+
+    editor?.changeFontSize(value);
+    setProperties((current) => ({
+      ...current,
+      fontSize: value,
+    }));
+  };
+
+  const onChangeTextAlign = (value: string) => {
+    if (!selectedObject) {
+      return;
+    }
+
+    editor?.changeTextAlign(value);
+    setProperties((current) => ({
+      ...current,
+      textAlign: value,
+    }));
+  };
 
   const toggleBold = () => {
     if (!selectedObject) {
@@ -107,30 +154,6 @@ export const Toolbar = ({
     }));
   };
 
-  const onChangeFontSize = (value: number) => {
-    if (!selectedObject) {
-      return;
-    }
-
-    editor?.changeFontSize(value);
-    setProperties((current) => ({
-      ...current,
-      fontSize: value,
-    }));
-  };
-
-  const onChangeTextAlign = (value: string) => {
-    if (!selectedObject) {
-      return;
-    }
-
-    editor?.changeTextAlign(value);
-    setProperties((current) => ({
-      ...current,
-      textAlign: value,
-    }));
-  };
-
   if (editor?.selectedObjects.length === 0) {
     return (
       <div className="shrink-0 h-[56px] border-b bg-white w-full flex items-center overflow-x-auto z-[49] p-2 gap-x-2" />
@@ -138,7 +161,6 @@ export const Toolbar = ({
   }
 
   return (
-
     <div className="shrink-0 h-[56px] border-b bg-white w-full flex items-center overflow-x-auto z-[49] p-2 gap-x-2">
       {!isImage && (
         <div className="flex items-center h-full justify-center">
@@ -230,7 +252,6 @@ export const Toolbar = ({
           </Hint>
         </div>
       )}
-
       {isText && (
         <div className="flex items-center h-full justify-center">
           <Hint label="Italic" side="bottom" sideOffset={5}>
@@ -247,7 +268,6 @@ export const Toolbar = ({
           </Hint>
         </div>
       )}
-
       {isText && (
         <div className="flex items-center h-full justify-center">
           <Hint label="Underline" side="bottom" sideOffset={5}>
@@ -280,7 +300,6 @@ export const Toolbar = ({
           </Hint>
         </div>
       )}
-
       {isText && (
         <div className="flex items-center h-full justify-center">
           <Hint label="Align left" side="bottom" sideOffset={5}>
@@ -331,13 +350,12 @@ export const Toolbar = ({
       )}
       {isText && (
         <div className="flex items-center h-full justify-center">
-          <FontSizeInput
+         <FontSizeInput
             value={properties.fontSize}
             onChange={onChangeFontSize}
-          />
+         />
         </div>
       )}
-
       {isImage && (
         <div className="flex items-center h-full justify-center">
           <Hint label="Filters" side="bottom" sideOffset={5}>
@@ -354,24 +372,6 @@ export const Toolbar = ({
           </Hint>
         </div>
       )}
-
-      {isImage && (
-        <div className="flex items-center h-full justify-center">
-          <Hint label="Filters" side="bottom" sideOffset={5}>
-            <Button
-              onClick={() => onChangeActiveTool("filter")}
-              size="icon"
-              variant="ghost"
-              className={cn(
-                activeTool === "filter" && "bg-gray-100"
-              )}
-            >
-              <TbColorFilter className="size-4" />
-            </Button>
-          </Hint>
-        </div>
-      )}
-
       {isImage && (
         <div className="flex items-center h-full justify-center">
           <Hint label="Remove background" side="bottom" sideOffset={5}>
@@ -410,7 +410,6 @@ export const Toolbar = ({
           </Button>
         </Hint>
       </div>
-
       <div className="flex items-center h-full justify-center">
         <Hint label="Opacity" side="bottom" sideOffset={5}>
           <Button
@@ -423,7 +422,20 @@ export const Toolbar = ({
           </Button>
         </Hint>
       </div>
-
+      <div className="flex items-center h-full justify-center">
+        <Hint label="Duplicate" side="bottom" sideOffset={5}>
+          <Button
+            onClick={() => {
+              editor?.onCopy();
+              editor?.onPaste();
+            }}
+            size="icon"
+            variant="ghost"
+          >
+            <Copy className="size-4" />
+          </Button>
+        </Hint>
+      </div>
       <div className="flex items-center h-full justify-center">
         <Hint label="Delete" side="bottom" sideOffset={5}>
           <Button
@@ -436,5 +448,5 @@ export const Toolbar = ({
         </Hint>
       </div>
     </div>
-  )
-}
+  );
+};

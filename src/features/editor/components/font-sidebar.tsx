@@ -1,7 +1,7 @@
-import {
-  ActiveTool,
+import { 
+  ActiveTool, 
   Editor,
-  fonts,
+  fonts, 
 } from "@/features/editor/types";
 import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
 import { ToolSidebarHeader } from "@/features/editor/components/tool-sidebar-header";
@@ -40,7 +40,7 @@ export const FontSidebar = ({
       />
       <ScrollArea>
         <div className="p-4 space-y-1 border-b">
-          {fonts.map((font: string) => (
+          {fonts.map((font) => (
             <Button
               key={font}
               variant="secondary"

@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { AlertTriangle, Loader, Upload } from "lucide-react";
 
-import {
-  ActiveTool,
+import { 
+  ActiveTool, 
   Editor,
 } from "@/features/editor/types";
 import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
@@ -12,9 +12,8 @@ import { ToolSidebarHeader } from "@/features/editor/components/tool-sidebar-hea
 import { useGetImages } from "@/features/images/api/use-get-images";
 
 import { cn } from "@/lib/utils";
-// import { UploadButton } from "@/lib/uploadthing";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { UploadButton } from "@/lib/uploadthing";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ImageSidebarProps {
   editor: Editor | undefined;
@@ -72,7 +71,7 @@ export const ImageSidebar = ({
           </p>
         </div>
       )}
-      {/* <ScrollArea> */}
+      <ScrollArea>
         <div className="p-4">
           <div className="grid grid-cols-2 gap-4">
             {data && data.map((image) => {
@@ -100,7 +99,7 @@ export const ImageSidebar = ({
             })}
           </div>
         </div>
-      {/* </ScrollArea> */}
+      </ScrollArea>
       <ToolSidebarClose onClick={onClose} />
     </aside>
   );

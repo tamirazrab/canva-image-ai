@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// import { usePaywall } from "@/features/subscriptions/hooks/use-paywall";
+import { usePaywall } from "@/features/subscriptions/hooks/use-paywall";
 
 import { ActiveTool, Editor } from "@/features/editor/types";
 import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
@@ -10,8 +10,8 @@ import { useGenerateImage } from "@/features/ai/api/use-generate-image";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface AiSidebarProps {
   editor: Editor | undefined;
@@ -24,7 +24,7 @@ export const AiSidebar = ({
   activeTool,
   onChangeActiveTool,
 }: AiSidebarProps) => {
-  // const { shouldBlock, triggerPaywall } = usePaywall();
+  const { shouldBlock, triggerPaywall } = usePaywall();
   const mutation = useGenerateImage();
 
   const [value, setValue] = useState("");
@@ -34,10 +34,10 @@ export const AiSidebar = ({
   ) => {
     e.preventDefault();
 
-    // if (shouldBlock) {
-    //   triggerPaywall();
-    //   return;
-    // }
+    if (shouldBlock) {
+      triggerPaywall();
+      return;
+    }
 
     mutation.mutate({ prompt: value }, {
       onSuccess: ({ data }) => {

@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 
-import {
-  ActiveTool,
-  Editor,
+import { 
+  ActiveTool, 
+  Editor, 
 } from "@/features/editor/types";
 import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
 import { ToolSidebarHeader } from "@/features/editor/components/tool-sidebar-header";
